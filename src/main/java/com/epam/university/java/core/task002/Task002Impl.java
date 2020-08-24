@@ -2,6 +2,7 @@ package com.epam.university.java.core.task002;
 
 /*
  * Completed by Laptev Egor 22.08.2020
+ * Oh, shit, new tests...Fix it 24.08.2020
  * */
 
 public class Task002Impl implements Task002 {
@@ -50,7 +51,7 @@ public class Task002Impl implements Task002 {
             throw new IllegalArgumentException();
         }
         String[] result = sourceString.split(separator);
-        return result[1];
+        return result.length > 1 ? result[1] : sourceString;
     }
 
     @Override
@@ -63,8 +64,13 @@ public class Task002Impl implements Task002 {
 
     @Override
     public String join(String[] sourceCollection, String glue) {
-        if (sourceCollection == null || glue == null) {
+        if (sourceCollection == null || glue == null || sourceCollection.length == 0) {
             throw new IllegalArgumentException();
+        }
+        for (String string : sourceCollection) {
+            if (string == null) {
+                throw new IllegalArgumentException();
+            }
         }
         return String.join(glue, sourceCollection);
     }
