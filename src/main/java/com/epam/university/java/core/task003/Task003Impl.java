@@ -35,7 +35,7 @@ public class Task003Impl implements Task003 {
 
     @Override
     public int findMax(int[] source) {
-        if (source == null) {
+        if (source == null || source.length == 0) {
             throw new IllegalArgumentException();
         }
         return Arrays.stream(source).max().getAsInt();
@@ -91,7 +91,17 @@ public class Task003Impl implements Task003 {
             resultSet.addAll(Arrays.asList(str));
         }
         List<String> resultList = new ArrayList<>(resultSet);
-        Collections.reverse(resultList);
+        List<Integer> parseStringToInt = new ArrayList<>();
+        for (String string : resultList) {
+            parseStringToInt.add(Integer.valueOf(string));
+        }
+        resultList.clear();
+        Collections.sort(parseStringToInt);
+        Collections.reverse(parseStringToInt);
+
+        for (Integer integer : parseStringToInt) {
+            resultList.add(String.valueOf(integer));
+        }
         return resultList.toArray(new String[0]);
     }
 
