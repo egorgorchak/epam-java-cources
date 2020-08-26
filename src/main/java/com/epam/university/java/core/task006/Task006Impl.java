@@ -8,10 +8,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Collection;
 
-/*
- * Completed by Laptev Egor 26.08.2020
- * */
-
 public class Task006Impl implements Task006 {
     @Override
     public double resistance(Collection<Measurement> measurements) {
