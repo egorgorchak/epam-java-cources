@@ -22,7 +22,7 @@ public class Task005Impl implements Task005 {
 
         for (int i = 0; i < numbers.size(); i++) { // i = numerator
             int numerator = numbers.get(i);
-            for (int j = 0; j < i; j++) { //j = denominator
+            for (int j = 0; j <= i / 3; j++) { //j = denominator
                 int denominator = numbers.get(j);
                 if (denominator <= (numerator / 3) && denominator > (numerator / 4)) {
                     double currentEx = Math.abs(((double) numerator / denominator) - Math.PI);
