@@ -35,7 +35,7 @@ public class Task010Impl implements Task010 {
             int freq = 0;
             for (String string2 : words) {
                 if (string1.equals(string2)) {
-                    freq = ++freq;
+                    ++freq;
                 }
             }
             result.put(string1, freq);
