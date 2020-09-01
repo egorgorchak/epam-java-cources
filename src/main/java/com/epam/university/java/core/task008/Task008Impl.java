@@ -8,6 +8,10 @@ public class Task008Impl implements Task008 {
 
     @Override
     public boolean isValid(String sourceString) {
+        if (sourceString == null) {
+            throw new IllegalArgumentException();
+        }
+
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < sourceString.length(); i++) {
             if (isBracket(sourceString.charAt(i))) {
