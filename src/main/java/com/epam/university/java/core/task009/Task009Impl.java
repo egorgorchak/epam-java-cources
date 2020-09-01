@@ -15,6 +15,10 @@ import java.util.HashSet;
 public class Task009Impl implements Task009 {
     @Override
     public Collection<String> countWords(File sourceFile) {
+        if (sourceFile == null) {
+            throw new IllegalArgumentException();
+        }
+
         HashSet<String> uniqueWords = new HashSet<>();
 
         try (BufferedReader reader =
