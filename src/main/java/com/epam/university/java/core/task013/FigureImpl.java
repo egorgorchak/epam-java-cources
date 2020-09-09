@@ -4,10 +4,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class FigureImpl implements Figure {
-    ArrayList<Vertex> vertexes = new ArrayList<>();
+    private ArrayList<Vertex> vertexes = new ArrayList<>();
+    private final int amountOfVert;
+
+    public FigureImpl(int vertexCount) {
+        this.amountOfVert = vertexCount;
+    }
 
     @Override
     public void addVertex(Vertex vertex) {
+        if (vertexes.size() > amountOfVert) {
+            throw new IllegalArgumentException();
+        }
         vertexes.add(vertex);
     }
 

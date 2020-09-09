@@ -4,6 +4,11 @@ public class VertexImpl implements Vertex {
     private int x;
     private int y;
 
+    public VertexImpl(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     @Override
     public int getX() {
         return x;
