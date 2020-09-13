@@ -10,6 +10,9 @@ import java.util.Collection;
 public class Task024Impl implements Task024 {
     @Override
     public Collection<String> getWordsCount(String source) {
+        if (source == null) {
+            throw new IllegalArgumentException();
+        }
         ArrayList<String> splitWords = new ArrayList<>();
         int begOfWord = 0;
         for (int i = 0; i < source.length(); i++) {
