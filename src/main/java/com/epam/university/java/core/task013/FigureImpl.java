@@ -13,7 +13,7 @@ public class FigureImpl implements Figure {
 
     @Override
     public void addVertex(Vertex vertex) {
-        if (vertexes.size() > amountOfVert) {
+        if (vertexes.size() >= amountOfVert) {
             throw new IllegalArgumentException();
         }
         vertexes.add(vertex);

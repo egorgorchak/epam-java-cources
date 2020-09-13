@@ -1,11 +1,19 @@
 package com.epam.university.java.core.task013;
 
+/*
+ * Completed by Laptev Egor 13.09.2020
+ * */
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class Task013Impl implements Task013 {
     @Override
     public Figure invokeActions(Figure figure, Collection<FigureAction> actions) {
+        if (figure == null || actions == null || actions.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         for (FigureAction action : actions) {
             action.run(figure);
         }
@@ -14,7 +22,10 @@ public class Task013Impl implements Task013 {
 
     @Override
     public boolean isConvexPolygon(Figure figure) {
-        ArrayList<Vertex> vertexes = new ArrayList<>(figure.getVertexes());
+        if (figure == null) {
+            throw new IllegalArgumentException();
+        }
+        List<Vertex> vertexes = new ArrayList<>(sortVertices((List<Vertex>) figure.getVertexes()));
         int checkSign = 0;
         for (int i = 0; i < vertexes.size(); i++) {
             Vertex currentVert = vertexes.get(i);
@@ -22,7 +33,7 @@ public class Task013Impl implements Task013 {
             if (i == vertexes.size() - 1) {
                 nextVert = vertexes.get(0); ;
             } else {
-                nextVert = vertexes.get(i+1);
+                nextVert = vertexes.get(i + 1);
             }
             Vertex previousVert;
             if (i == 0) {
@@ -42,23 +53,68 @@ public class Task013Impl implements Task013 {
 
             int value = point1[0] * point2[1] - point1[1] * point2[0];
             if (i == 0) {
-                checkSign = sign(value);
-            } else if (sign(value) == 0) {
+                checkSign = Integer.compare(value, 0);
+            } else if (value == 0) {
                 continue;
-            } else if (checkSign != sign(value)) {
+            } else if (checkSign != Integer.compare(value, 0)) {
                 return false;
             }
         }
         return true;
     }
 
-    public int sign(int x) {
-        if (x > 0) {
-            return 1;
-        } else if (x < 0) {
-            return -1;
-        } else {
-            return 0;
+    /**
+     * Sorting vertices in right order.
+     * @param vertices list of vertices
+     * @return sorted list of vertices
+     */
+    public List<Vertex> sortVertices(List<Vertex> vertices) {
+        Vertex leftMin = vertices.get(0);
+        for (Vertex vert : vertices) {
+            if (leftMin.getX() > vert.getX()) {
+                leftMin = vert;
+            } else if (leftMin.getX() == vert.getX()) {
+                if (leftMin.getY() > vert.getY()) {
+                    leftMin = vert;
+                }
+            }
         }
+        List<Vertex> sortedVertices = new ArrayList<>();
+        sortedVertices.add(leftMin);
+
+        for (Vertex vertex : vertices) {
+            if (vertex.getY() != leftMin.getY() || vertex.getX() != leftMin.getX()) {
+                sortedVertices.add(vertex);
+            }
+        }
+
+        boolean isSorted = false;
+        while (!isSorted) {
+            isSorted = true;
+            for (int i = 1; i < sortedVertices.size() - 1; i++) {
+                Vertex currentVertex = sortedVertices.get(i);
+                Vertex nextVertex = sortedVertices.get(i + 1);
+
+                double currentAngle = Math.atan2(currentVertex.getY(), currentVertex.getX());
+                double nextAngle = Math.atan2(nextVertex.getY(), nextVertex.getX());
+
+                if (nextAngle > currentAngle) {
+                    Vertex temp = sortedVertices.get(i);
+                    sortedVertices.set(i, sortedVertices.get(i + 1));
+                    sortedVertices.set(i + 1, temp);
+                    isSorted = false;
+                }
+
+                if (nextAngle == 0 && currentAngle == 0) {
+                    if (currentVertex.getX() < nextVertex.getX()) {
+                        Vertex temp = sortedVertices.get(i);
+                        sortedVertices.set(i, sortedVertices.get(i + 1));
+                        sortedVertices.set(i + 1, temp);
+                        isSorted = false;
+                    }
+                }
+            }
+        }
+        return sortedVertices;
     }
 }
