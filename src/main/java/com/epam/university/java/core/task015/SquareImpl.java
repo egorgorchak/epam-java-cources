@@ -17,6 +17,15 @@ public class SquareImpl implements Square {
         this.fourth = findFourth(first);
     }
 
+    public SquareImpl(Point first, Point second, Point third, Point fourth) {
+        this.first = first;
+        this.second = second;
+        this.third = third;
+        this.fourth = fourth;
+        this.diagonal = findDiagonal(first, third);
+        this.side = diagonal / Math.sqrt(2d);
+    }
+
     public Point findThird(Point point) {
         if (this.first.getX() == this.second.getX()) {
             double delta = Math.cos((45*Math.PI) / 180d) * side;

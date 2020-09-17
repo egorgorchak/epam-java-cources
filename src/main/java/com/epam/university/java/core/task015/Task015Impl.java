@@ -1,7 +1,13 @@
 package com.epam.university.java.core.task015;
 
-import com.epam.university.java.core.task013.Vertex;
-
+        /*
+        1. Находим все координаты квадрата done
+        2. Составляем список с упорядоченными вершинами квадрата done
+        3. строим уравнение прямой done
+        4. Проверяем точки пересечения и добавляем их список done
+        5. если точек меньше 2, то ищем точки внутри квадрата и добавляем их в список
+        6. Вычисляем площадь
+         */
 import java.util.*;
 
 public class Task015Impl implements Task015 {
@@ -74,22 +80,20 @@ public class Task015Impl implements Task015 {
             }
         }
         LinkedHashSet<Point> points = new LinkedHashSet<>(sortPointsInRightOrder(pointsOfIntersection));
+        pointsOfIntersection = new ArrayList<>(points);
 
-        List<Point> intersection = sortPointsInRightOrder(pointsOfIntersection);
-
-        /*
-        1. Находим все координаты квадрата done
-        2. Составляем список с упорядоченными вершинами квадрата done
-        3. строим уравнение прямой done
-        4. Проверяем точки пересечения и добавляем их список done
-        5. если точек меньше 2, то ищем точки внутри квадрата и добавляем их в список
-        6. Вычисляем площадь
-         */
-        if (points.size() == 3) {
-
+        if (pointsOfIntersection.size() == 3) {
+            return triangleArea(pointsOfIntersection.get(0),
+                                pointsOfIntersection.get(1),
+                                pointsOfIntersection.get(2));
+        } else if (pointsOfIntersection.size() > 3) {
+            SquareImpl interSquare = new SquareImpl(pointsOfIntersection.get(0),
+                                                    pointsOfIntersection.get(1),
+                                                    pointsOfIntersection.get(2),
+                                                    pointsOfIntersection.get(3));
+            return interSquare.getSide() * interSquare.getSide();
         }
-
-        return 0d;
+        return 0;
     }
 
     public Point pointOfIntersect(Point firstLine1, Point firstLine2, Point secondLine1, Point secondLine2) {
