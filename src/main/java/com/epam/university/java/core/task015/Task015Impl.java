@@ -178,10 +178,10 @@ public class Task015Impl implements Task015 {
         Point leftMin = square.getFirst();
 
         for (Point point : points) {
-            if (leftMin.getY() > point.getY()) {
+            if (leftMin.getX() > point.getX()) {
                 leftMin = point;
-            } else if (leftMin.getY() == point.getY()) {
-                if (leftMin.getX() > point.getX()) {
+            } else if (leftMin.getX() == point.getX()) {
+                if (leftMin.getY() > point.getY()) {
                     leftMin = point;
                 }
             }
@@ -234,10 +234,10 @@ public class Task015Impl implements Task015 {
         Point leftMin = points.get(0);
 
         for (Point point : points) {
-            if (leftMin.getY() > point.getY()) {
+            if (leftMin.getX() > point.getX()) {
                 leftMin = point;
-            } else if (leftMin.getY() == point.getY()) {
-                if (leftMin.getX() > point.getX()) {
+            } else if (leftMin.getX() == point.getX()) {
+                if (leftMin.getY() > point.getY()) {
                     leftMin = point;
                 }
             }
