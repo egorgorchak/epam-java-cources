@@ -1,13 +1,5 @@
 package com.epam.university.java.core.task015;
 
-        /*
-        1. Находим все координаты квадрата done
-        2. Составляем список с упорядоченными вершинами квадрата done
-        3. строим уравнение прямой done
-        4. Проверяем точки пересечения и добавляем их список done
-        5. если точек меньше 2, то ищем точки внутри квадрата и добавляем их в список
-        6. Вычисляем площадь
-         */
 import java.util.*;
 
 public class Task015Impl implements Task015 {
@@ -89,18 +81,19 @@ public class Task015Impl implements Task015 {
         LinkedHashSet<Point> points = new LinkedHashSet<>(sortPointsInRightOrder(pointsOfIntersection));
         pointsOfIntersection = new ArrayList<>(points);
 
-
-
-        if (pointsOfIntersection.size() == 3) {
-            return triangleArea(pointsOfIntersection.get(0),
-                                pointsOfIntersection.get(1),
-                                pointsOfIntersection.get(2));
-        } else if (pointsOfIntersection.size() > 3) {
-            SquareImpl interSquare = new SquareImpl(pointsOfIntersection.get(0),
-                                                    pointsOfIntersection.get(2));
-            return interSquare.getSide() * interSquare.getSide();
+        double area = 0;
+        for (int i = 0; i < pointsOfIntersection.size(); i++) {
+            Point current = pointsOfIntersection.get(i);
+            Point next;
+            if (i == pointsOfIntersection.size() - 1) {
+                next = pointsOfIntersection.get(0);
+            } else {
+                next = pointsOfIntersection.get(i + 1);
+            }
+            area = area + (current.getX() * next.getY() - current.getY() * next.getX()) / 2d;
         }
-        return 0d;
+
+        return Math.abs(area);
     }
 
     public Point pointOfIntersect(Point firstLine1, Point firstLine2, Point secondLine1, Point secondLine2) {
