@@ -5,16 +5,12 @@ public class SquareImpl implements Square {
     private Point second;
     private Point third;
     private Point fourth;
-    private double diagonal;
     private double side;
 
     public SquareImpl(Point first, Point second) {
         this.first = first;
         this.second = second;
-        this.diagonal = findDiagonal(first, second);
-        this.side = diagonal / Math.sqrt(2d);
-        this.third = findThird(first);
-        this.fourth = findFourth(first);
+        findAllVertices();
     }
 
     public SquareImpl(Point first, Point second, Point third, Point fourth) {
@@ -22,43 +18,52 @@ public class SquareImpl implements Square {
         this.second = second;
         this.third = third;
         this.fourth = fourth;
-        this.diagonal = findDiagonal(first, third);
-        this.side = diagonal / Math.sqrt(2d);
     }
 
-    public Point findThird(Point point) {
-        if (this.first.getX() == this.second.getX()) {
-            double delta = Math.cos((45*Math.PI) / 180d) * side;
-            return new PointFactoryImpl().newInstance((point.getX() + delta), (point.getY() + delta));
-        } else if (this.first.getY() == this.second.getY()) {
-            double delta = Math.cos((45*Math.PI) / 180d) * side;
-            return new PointFactoryImpl().newInstance((point.getX() + delta), (point.getY() + delta));
-        } else {
-            return new PointFactoryImpl().newInstance((point.getX() + side), point.getY());
-        }
-    }
+    public void findAllVertices () {
+        double xc = (first.getX() + second.getX()) / 2;
+        double yc = (first.getY() + second.getY()) / 2;
 
-    public Point findFourth(Point point) {
-        if (this.first.getX() == this.second.getX()) {
-            double delta = Math.cos((45*Math.PI) / 180d) * side;
-            return new PointFactoryImpl().newInstance((point.getX() - delta), (point.getY() + delta));
-        } else if (this.first.getY() == this.second.getY()) {
-            double delta = Math.cos((45*Math.PI) / 180d) * side;
-            return new PointFactoryImpl().newInstance((point.getX() + delta), (point.getY() - delta));
-        } else {
-            return new PointFactoryImpl().newInstance(point.getX(), point.getY() + side);
-        }
-    }
+        double xd = (first.getX() - second.getX()) / 2;
+        double yd = (first.getY() - second.getY()) / 2;
 
-    public double findDiagonal(Point first, Point second) {
+        third = new PointFactoryImpl().newInstance((xc - yd), (yc + xd));
+        fourth = new PointFactoryImpl().newInstance((xc + yd), (yc - xd));
+
+        double diagonal;
         if (first.getX() == second.getX()) {
-            return Math.abs(first.getY() - second.getY());
+            diagonal = Math.abs(first.getY() - second.getY());
         } else if (first.getY() == second.getY()) {
-            return Math.abs(first.getX() - second.getX());
+            diagonal = Math.abs(first.getX() - second.getX());
         } else {
-            return Math.abs(first.getX() - second.getX()) * Math.sqrt(2d);
+            diagonal = Math.abs(first.getX() - second.getX()) * Math.sqrt(2d);
         }
+        side = diagonal / Math.sqrt(2d);
     }
+
+//    public Point findThird(Point point) {
+//        if (this.first.getX() == this.second.getX()) {
+//            double delta = Math.cos((45*Math.PI) / 180d) * side;
+//            return new PointFactoryImpl().newInstance((point.getX() + delta), (point.getY() + delta));
+//        } else if (this.first.getY() == this.second.getY()) {
+//            double delta = Math.cos((45*Math.PI) / 180d) * side;
+//            return new PointFactoryImpl().newInstance((point.getX() + delta), (point.getY() + delta));
+//        } else {
+//            return new PointFactoryImpl().newInstance((point.getX() + side), point.getY());
+//        }
+//    }
+
+//    public Point findFourth(Point point) {
+//        if (this.first.getX() == this.second.getX()) {
+//            double delta = Math.cos((45*Math.PI) / 180d) * side;
+//            return new PointFactoryImpl().newInstance((point.getX() - delta), (point.getY() + delta));
+//        } else if (this.first.getY() == this.second.getY()) {
+//            double delta = Math.cos((45*Math.PI) / 180d) * side;
+//            return new PointFactoryImpl().newInstance((point.getX() + delta), (point.getY() - delta));
+//        } else {
+//            return new PointFactoryImpl().newInstance(point.getX(), point.getY() + side);
+//        }
+//    }
 
     @Override
     public Point getFirst() {
@@ -76,10 +81,6 @@ public class SquareImpl implements Square {
 
     public Point getFourth() {
         return fourth;
-    }
-
-    public double getDiagonal() {
-        return diagonal;
     }
 
     public double getSide() {

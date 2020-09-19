@@ -13,6 +13,10 @@ import java.util.*;
 public class Task015Impl implements Task015 {
     @Override
     public double getArea(Square first, Square second) {
+        if (first == null || second == null) {
+            throw new IllegalArgumentException();
+        }
+
         List<Point> sortedPointsOfFirst = sortPointsInRightOrder(first);
         List<Point> sortedPointsOfSecond = sortPointsInRightOrder(second);
 
@@ -79,8 +83,13 @@ public class Task015Impl implements Task015 {
                 pointsOfIntersection.add(point1);
             }
         }
+        if (pointsOfIntersection.isEmpty()) {
+            return 0d;
+        }
         LinkedHashSet<Point> points = new LinkedHashSet<>(sortPointsInRightOrder(pointsOfIntersection));
         pointsOfIntersection = new ArrayList<>(points);
+
+
 
         if (pointsOfIntersection.size() == 3) {
             return triangleArea(pointsOfIntersection.get(0),
@@ -88,12 +97,10 @@ public class Task015Impl implements Task015 {
                                 pointsOfIntersection.get(2));
         } else if (pointsOfIntersection.size() > 3) {
             SquareImpl interSquare = new SquareImpl(pointsOfIntersection.get(0),
-                                                    pointsOfIntersection.get(1),
-                                                    pointsOfIntersection.get(2),
-                                                    pointsOfIntersection.get(3));
+                                                    pointsOfIntersection.get(2));
             return interSquare.getSide() * interSquare.getSide();
         }
-        return 0;
+        return 0d;
     }
 
     public Point pointOfIntersect(Point firstLine1, Point firstLine2, Point secondLine1, Point secondLine2) {
@@ -267,6 +274,18 @@ public class Task015Impl implements Task015 {
                     sortedPoints.set(i, sortedPoints.get(i + 1));
                     sortedPoints.set(i + 1, temp);
                     isSorted = false;
+                }
+            }
+            for (int i = 0; i < sortedPoints.size() - 1; i++) {
+                Point currentPoint = sortedPoints.get(i);
+                Point nextPoint = sortedPoints.get(i + 1);
+                if (currentPoint.getX() == currentPoint.getY() && nextPoint.getX() == nextPoint.getY()) {
+                    if (currentPoint.getX() > nextPoint.getX()) {
+                        Point temp = sortedPoints.get(i);
+                        sortedPoints.set(i, sortedPoints.get(i + 1));
+                        sortedPoints.set(i + 1, temp);
+                        isSorted = false;
+                    }
                 }
             }
         }
