@@ -1,34 +1,39 @@
 package com.epam.university.java.core.task015;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class SquareImpl implements Square {
     private Point first;
     private Point second;
     private Point third;
     private Point fourth;
     private double side;
+    private List<Point> pointList;
 
+    /**
+     * Square constructor with two points arranged diagonally.
+     * @param first first point of square
+     * @param second second point of square
+     */
     public SquareImpl(Point first, Point second) {
         this.first = first;
         this.second = second;
         findAllVertices();
     }
 
-    public SquareImpl(Point first, Point second, Point third, Point fourth) {
-        this.first = first;
-        this.second = second;
-        this.third = third;
-        this.fourth = fourth;
-    }
-
-    public void findAllVertices () {
+    /**
+     * Calculation of third and fourth vertices of square.
+     */
+    public void findAllVertices() {
         double xc = (first.getX() + second.getX()) / 2;
         double yc = (first.getY() + second.getY()) / 2;
 
         double xd = (first.getX() - second.getX()) / 2;
         double yd = (first.getY() - second.getY()) / 2;
 
-        third = new PointFactoryImpl().newInstance((xc - yd), (yc + xd));
-        fourth = new PointFactoryImpl().newInstance((xc + yd), (yc - xd));
+        setThird(new PointFactoryImpl().newInstance((xc - yd), (yc + xd)));
+        setFourth(new PointFactoryImpl().newInstance((xc + yd), (yc - xd)));
 
         double diagonal;
         if (first.getX() == second.getX()) {
@@ -38,32 +43,9 @@ public class SquareImpl implements Square {
         } else {
             diagonal = Math.abs(first.getX() - second.getX()) * Math.sqrt(2d);
         }
-        side = diagonal / Math.sqrt(2d);
+        setSide(diagonal / Math.sqrt(2d));
+        setPointList(Arrays.asList(getFirst(), getSecond(), getThird(), getFourth()));
     }
-
-//    public Point findThird(Point point) {
-//        if (this.first.getX() == this.second.getX()) {
-//            double delta = Math.cos((45*Math.PI) / 180d) * side;
-//            return new PointFactoryImpl().newInstance((point.getX() + delta), (point.getY() + delta));
-//        } else if (this.first.getY() == this.second.getY()) {
-//            double delta = Math.cos((45*Math.PI) / 180d) * side;
-//            return new PointFactoryImpl().newInstance((point.getX() + delta), (point.getY() + delta));
-//        } else {
-//            return new PointFactoryImpl().newInstance((point.getX() + side), point.getY());
-//        }
-//    }
-
-//    public Point findFourth(Point point) {
-//        if (this.first.getX() == this.second.getX()) {
-//            double delta = Math.cos((45*Math.PI) / 180d) * side;
-//            return new PointFactoryImpl().newInstance((point.getX() - delta), (point.getY() + delta));
-//        } else if (this.first.getY() == this.second.getY()) {
-//            double delta = Math.cos((45*Math.PI) / 180d) * side;
-//            return new PointFactoryImpl().newInstance((point.getX() + delta), (point.getY() - delta));
-//        } else {
-//            return new PointFactoryImpl().newInstance(point.getX(), point.getY() + side);
-//        }
-//    }
 
     @Override
     public Point getFirst() {
@@ -103,5 +85,17 @@ public class SquareImpl implements Square {
 
     public void setFourth(Point fourth) {
         this.fourth = fourth;
+    }
+
+    public void setSide(double side) {
+        this.side = side;
+    }
+
+    public List<Point> getPointList() {
+        return pointList;
+    }
+
+    public void setPointList(List<Point> pointList) {
+        this.pointList = pointList;
     }
 }
