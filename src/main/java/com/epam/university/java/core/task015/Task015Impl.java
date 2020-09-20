@@ -78,7 +78,7 @@ public class Task015Impl implements Task015 {
         if (pointsOfIntersection.isEmpty()) {
             return 0d;
         }
-        LinkedHashSet<Point> points = new LinkedHashSet<>(sortPointsInRightOrder(pointsOfIntersection));
+        LinkedHashSet<Point> points = new LinkedHashSet<>(grahamSort(pointsOfIntersection));
         pointsOfIntersection = new ArrayList<>(points);
 
         double area = 0;
@@ -299,5 +299,56 @@ public class Task015Impl implements Task015 {
         ArrayList<Point> arrayList = new ArrayList<>(pointSet);
         double side = Math.sqrt(Math.pow(arrayList.get(0).getX() - arrayList.get(1).getX(), 2) + Math.pow(arrayList.get(0).getY() - arrayList.get(1).getY(), 2));
         return side * side;
+    }
+
+    public List<Point> grahamSort(List<Point> points) {
+        Point rightMin = points.get(0);
+        for (Point point : points) {
+            if (rightMin.getY() > point.getY()) {
+                rightMin = point;
+            } else if (rightMin.getY() == point.getY()) {
+                if (rightMin.getX() < point.getX()) {
+                    rightMin = point;
+                }
+            }
+        }
+        Point pointWithMaxAngle = null;
+        double maxAngle = 0;
+        for (Point point : points) {
+            double currentAngle = angleBetweenLineAndAbscissa(rightMin, point);
+            if (currentAngle > maxAngle) {
+                maxAngle = currentAngle;
+                pointWithMaxAngle = point;
+            }
+        }
+
+        points.remove(pointWithMaxAngle);
+        points.remove(rightMin);
+        points.add(0, pointWithMaxAngle);
+        points.add(1, rightMin);
+
+        boolean isSorted = false;
+        while (!isSorted) {
+            isSorted = true;
+            for (int i = 2; i < points.size() - 1; i++) {
+                Point currentPoint = points.get(i);
+                Point nextPoint = points.get(i + 1);
+
+                double currentAngle = angleBetweenLineAndAbscissa(rightMin, currentPoint);
+                double nextAngle = angleBetweenLineAndAbscissa(rightMin, nextPoint);
+                if (currentAngle > nextAngle) {
+                    Point temp = points.get(i);
+                    points.set(i, points.get(i + 1));
+                    points.set(i + 1, temp);
+                    isSorted = false;
+                }
+            }
+        }
+
+        return points;
+    }
+
+    public static double angleBetweenLineAndAbscissa(Point p1, Point p2) {
+        return Math.atan2(p2.getY() - p1.getY(), p2.getX() - p1.getX());
     }
 }
