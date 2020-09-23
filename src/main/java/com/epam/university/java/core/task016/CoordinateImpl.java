@@ -1,7 +1,5 @@
 package com.epam.university.java.core.task016;
 
-import com.epam.university.java.core.task015.Point;
-
 public class CoordinateImpl implements Coordinate {
     private int x;
     private int y;
