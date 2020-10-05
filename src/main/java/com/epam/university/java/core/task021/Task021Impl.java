@@ -44,17 +44,32 @@ public class Task021Impl implements Task021 {
                 thirdVertices.add(triangleThirdVertex(positions.get(i), positions.get(i + 1)));
             }
         }
-        Point intersect = pointOfIntersect(positions.get(0), thirdVertices.get(0), positions.get(1), thirdVertices.get(1));
-
-        return intersect;
+        return pointOfIntersect(
+                positions.get(0),
+                thirdVertices.get(0),
+                positions.get(1),
+                thirdVertices.get(1));
     }
 
+    /**
+     *
+     * @param p1
+     * @param p2
+     * @param p3
+     * @return
+     */
     public double angleBetween2lines(Point p1, Point p2, Point p3) {
         double angle1 = Math.toDegrees(Math.atan2(p1.getX() - p2.getX(), p1.getY() - p2.getY()));
         double angle2 = Math.toDegrees(Math.atan2(p2.getX() - p3.getX(), p2.getY() - p3.getY()));
         return Math.abs(180 - Math.abs(angle1 - angle2));
     }
 
+    /**
+     *
+     * @param p1
+     * @param p2
+     * @return
+     */
     public BigPoint triangleThirdVertex(Point p1, Point p2) {
         Point lineMidpoint = new PointFactoryImpl().newInstance(
                 (p1.getX() + p2.getX()) / 2d,
@@ -82,20 +97,35 @@ public class Task021Impl implements Task021 {
                 );
     }
 
+    /**
+     *
+     * @param firstLine1
+     * @param firstLine2
+     * @param secondLine1
+     * @param secondLine2
+     * @return
+     */
     public BigPoint pointOfIntersect(Point firstLine1, BigPoint firstLine2,
                                   Point secondLine1, BigPoint secondLine2) {
         BigDecimal[] eq1 = new BigDecimal[3];
         eq1[0] = BigDecimal.valueOf(firstLine1.getY()).subtract(firstLine2.getBigDecimalY());
         eq1[1] = firstLine2.getBigDecimalX().subtract(BigDecimal.valueOf(firstLine1.getX()));
-        BigDecimal part1 = BigDecimal.valueOf(firstLine1.getX()).multiply(firstLine2.getBigDecimalY());
-        BigDecimal part2 = firstLine2.getBigDecimalX().multiply(BigDecimal.valueOf(firstLine1.getY()));
+        BigDecimal part1 = BigDecimal.valueOf(
+                firstLine1.getX()).multiply(firstLine2.getBigDecimalY()
+                );
+        BigDecimal part2 = firstLine2.getBigDecimalX()
+                .multiply(BigDecimal.valueOf(firstLine1.getY()));
         eq1[2] = part1.subtract(part2);
 
         BigDecimal[] eq2 = new BigDecimal[3];
         eq2[0] = BigDecimal.valueOf(secondLine1.getY()).subtract(secondLine2.getBigDecimalY());
         eq2[1] = secondLine2.getBigDecimalX().subtract(BigDecimal.valueOf(secondLine1.getX()));
-        BigDecimal part3 = BigDecimal.valueOf(secondLine1.getX()).multiply(secondLine2.getBigDecimalY());
-        BigDecimal part4 = secondLine2.getBigDecimalX().multiply(BigDecimal.valueOf(secondLine1.getY()));
+        BigDecimal part3 = BigDecimal.valueOf(
+                secondLine1.getX()).multiply(secondLine2.getBigDecimalY()
+                );
+        BigDecimal part4 = secondLine2
+                .getBigDecimalX()
+                .multiply(BigDecimal.valueOf(secondLine1.getY()));
         eq2[2] = part3.subtract(part4);
 
 
