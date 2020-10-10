@@ -18,16 +18,6 @@ public class PersonImpl implements Person {
     private String lastName;
     private Collection<PhoneNumber> phoneNumbers;
 
-    public PersonImpl() {
-    }
-
-    public PersonImpl(int id, String firstName, String lastName, Collection<PhoneNumber> phoneNumbers) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumbers = phoneNumbers;
-    }
-
     @Override
     public int getId() {
         return this.id;

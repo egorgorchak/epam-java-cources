@@ -10,6 +10,13 @@ import javax.xml.bind.annotation.XmlValue;
 public class PhoneNumberImpl implements PhoneNumber {
     private String phoneNumber;
 
+    public PhoneNumberImpl() {
+    }
+
+    public PhoneNumberImpl(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public String getPhoneNumber() {
         return this.phoneNumber;

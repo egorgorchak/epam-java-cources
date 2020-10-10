@@ -5,7 +5,6 @@ package com.epam.university.java.core.task034;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -17,7 +16,7 @@ public class SaxHandlerImpl extends SaxHandler {
     private Collection<PhoneNumber> phoneNumbers = new ArrayList<>();
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
         elementName = qName;
         if (elementName.equals("person")) {
             String id = attributes.getValue("id");
@@ -44,7 +43,7 @@ public class SaxHandlerImpl extends SaxHandler {
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         if (!firstName.isEmpty() && !lastName.isEmpty()) {
             person.setFirstName(firstName);
             person.setLastName(lastName);
