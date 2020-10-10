@@ -3,13 +3,30 @@ package com.epam.university.java.core.task034;
  * Completed by Laptev Egor 10.10.2020
  * */
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Collection;
 
+@XmlRootElement(name = "person")
+@XmlType(propOrder = {"firstName", "lastName", "phoneNumbers"})
 public class PersonImpl implements Person {
     private int id;
     private String firstName;
     private String lastName;
     private Collection<PhoneNumber> phoneNumbers;
+
+    public PersonImpl() {
+    }
+
+    public PersonImpl(int id, String firstName, String lastName, Collection<PhoneNumber> phoneNumbers) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumbers = phoneNumbers;
+    }
 
     @Override
     public int getId() {
@@ -17,6 +34,7 @@ public class PersonImpl implements Person {
     }
 
     @Override
+    @XmlAttribute
     public void setId(int id) {
         this.id = id;
     }
@@ -27,6 +45,7 @@ public class PersonImpl implements Person {
     }
 
     @Override
+    @XmlElement(name = "first-name")
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -37,6 +56,7 @@ public class PersonImpl implements Person {
     }
 
     @Override
+    @XmlElement(name = "last-name")
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -47,6 +67,8 @@ public class PersonImpl implements Person {
     }
 
     @Override
+    @XmlElementWrapper(name = "person-phones")
+    @XmlElement(name = "person-phone", type = PhoneNumberImpl.class)
     public void setPhoneNumbers(Collection<PhoneNumber> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
     }
