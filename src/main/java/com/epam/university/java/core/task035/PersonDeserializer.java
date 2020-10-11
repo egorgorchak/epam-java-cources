@@ -35,7 +35,7 @@ public class PersonDeserializer extends StdDeserializer<Person> {
                     person.setFirstName(p.getValueAsString());
                 } else if (fieldName.equals("lastName")) {
                     person.setLastName(p.getValueAsString());
-                } if (fieldName.equals("phones")) {
+                } else if (fieldName.equals("phones")) {
                     while (!JsonToken.END_ARRAY.equals(jsonToken)) {
                         jsonToken = p.nextToken();
                         if (JsonToken.VALUE_STRING.equals(jsonToken)) {
