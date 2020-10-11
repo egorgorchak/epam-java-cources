@@ -47,7 +47,6 @@ public class Task021Impl implements Task021 {
                 thirdVertices.add(triangleThirdVertex(positions.get(i), positions.get(i + 1)));
             }
         }
-
         Point line0n1 = pointOfIntersect(
                 positions.get(0),
                 thirdVertices.get(0),
