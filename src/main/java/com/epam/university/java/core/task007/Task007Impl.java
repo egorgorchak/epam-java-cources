@@ -10,7 +10,8 @@ import java.util.List;
 
 public class Task007Impl implements Task007 {
     @Override
-    public Collection<Integer> multiplyPolynomial(Collection<Integer> first, Collection<Integer> second) {
+    public Collection<Integer> multiplyPolynomial(Collection<Integer> first,
+                                                  Collection<Integer> second) {
         if (first == null || second == null) {
             throw new IllegalArgumentException();
         }
