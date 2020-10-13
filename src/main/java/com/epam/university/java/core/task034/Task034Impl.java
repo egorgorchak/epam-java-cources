@@ -100,6 +100,8 @@ public class Task034Impl implements Task034 {
                             event = reader.nextEvent();
                             phoneNumbers.add(new PhoneNumberImpl(event.asCharacters().getData()));
                             break;
+                        default:
+                            continue;
                     }
                 }
                 if (event.isEndElement()) {
