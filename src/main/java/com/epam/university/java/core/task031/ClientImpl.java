@@ -12,13 +12,8 @@ public class ClientImpl implements Client {
     private Socket socket;
     private PrintWriter out;
 
-    public ClientImpl() {
-        System.out.println("Client is created...");
-    }
-
     @Override
     public void start() {
-        System.out.println("Client is started. Thread " + Thread.currentThread().getName());
         try {
             socket = new Socket(InetAddress.getLocalHost(), 9999);
             out = new PrintWriter(socket.getOutputStream(), true);
@@ -29,7 +24,6 @@ public class ClientImpl implements Client {
 
     @Override
     public void stop() {
-        System.out.println("Client is stopped...");
         try {
             out.close();
             socket.close();
@@ -40,7 +34,6 @@ public class ClientImpl implements Client {
 
     @Override
     public void sendMessage(String message) {
-        System.out.println("Sending message...");
         out.println(message);
         out.flush();
     }

@@ -8,49 +8,61 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayDeque;
 
 public class ServerImpl implements Server {
-    private Socket socket;
+    private static volatile ArrayDeque<String> messages;
     private ServerSocket serverSocket;
-    private BufferedReader input;
     private boolean isServerRunning;
+    private boolean isClientRunning;
 
     public ServerImpl() {
-        System.out.println("Server is created...");
+        messages = new ArrayDeque<>();
     }
 
     @Override
     public void start() {
-        isServerRunning = true;
-        System.out.println("Server is started. Thread " + Thread.currentThread().getName());
-        Thread thread = new Thread(new Runnable() {
+        Thread thread1 = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     serverSocket = new ServerSocket(9999);
+                    isServerRunning = true;
                     while (isServerRunning) {
-                        socket = serverSocket.accept();
-                        System.out.println("Establish the connection with new Client. Thread " + Thread.currentThread().getName());
-                        input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                        ClientHandler clientHandler = new ClientHandler(socket, input);
-                        clientHandler.start();
+                        Socket socket = serverSocket.accept();
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                isClientRunning = true;
+                                try (BufferedReader input = new BufferedReader(
+                                        new InputStreamReader(socket.getInputStream()));) {
+                                    while (isClientRunning) {
+                                        if (input.ready()) {
+                                            String str = input.readLine();
+                                            messages.push(str);
+                                        }
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        thread.start();
                     }
                 } catch (IOException e) {
-                    System.out.println("Error starting the server");
-                    e.printStackTrace();
+                    System.out.println("Socket is closed");
                 }
             }
         });
-        thread.start();
+        thread1.start();
     }
 
     @Override
     public void stop() {
+        isServerRunning = false;
+        isClientRunning = false;
         try {
-            System.out.println("Server is stopped...");
-            isServerRunning = false;
-            socket.close();
-            input.close();
+            serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,35 +70,14 @@ public class ServerImpl implements Server {
 
     @Override
     public String readMessage() {
-        System.out.println("Server is read the message...");
-        String msg = "";
         try {
-            if (input.ready()) {
-                msg = input.readLine();
-            }
-        } catch (IOException e) {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return msg;
-    }
-    private class ClientHandler extends Thread {
-        private Socket clientSocket;
-        private BufferedReader clientInput;
-
-        public ClientHandler(Socket clientSocket, BufferedReader clientInput) {
-            this.clientSocket = clientSocket;
-            this.clientInput = clientInput;
+        if (messages.size() == 0) {
+            return "";
         }
-
-        @Override
-        public void run() {
-
-        }
-
-        public String clientMessage() {
-            return null;
-        }
+        return messages.poll();
     }
 }
-
-
