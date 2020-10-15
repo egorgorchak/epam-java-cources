@@ -34,6 +34,11 @@ public class ClientImpl implements Client {
 
     @Override
     public void sendMessage(String message) {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         out.println(message);
         out.flush();
     }

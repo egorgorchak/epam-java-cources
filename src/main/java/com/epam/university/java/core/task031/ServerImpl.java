@@ -35,7 +35,7 @@ public class ServerImpl implements Server {
                             public void run() {
                                 isClientRunning = true;
                                 try (BufferedReader input = new BufferedReader(
-                                        new InputStreamReader(socket.getInputStream()));) {
+                                        new InputStreamReader(socket.getInputStream()))) {
                                     while (isClientRunning) {
                                         if (input.ready()) {
                                             String str = input.readLine();
@@ -62,7 +62,9 @@ public class ServerImpl implements Server {
         isServerRunning = false;
         isClientRunning = false;
         try {
-            serverSocket.close();
+            if (serverSocket != null) {
+                serverSocket.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,7 +73,7 @@ public class ServerImpl implements Server {
     @Override
     public String readMessage() {
         try {
-            Thread.sleep(50);
+            Thread.sleep(250);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
