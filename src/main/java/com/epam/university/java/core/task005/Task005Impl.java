@@ -17,23 +17,26 @@ public class Task005Impl implements Task005 {
         for (int i = upBorder / 10; i < upBorder; i++) {
             numbers.add(i);
         }
-        double minimum = 1;
-        PiHolderImpl holder = new PiHolderImpl(0, 0);
+        int sizeOfArray = numbers.size();
 
-        for (int i = 0; i < numbers.size(); i++) { // i = numerator
+        double minimum = 1;
+        int resFirst = 0;
+        int resSecond = 0;
+
+        for (int i = 0; i < sizeOfArray; i++) { // i = numerator
             int numerator = numbers.get(i);
-            for (int j = 0; j <= i / 3; j++) { //j = denominator
+            for (int j = 0; j <= i / 4; j++) { //j = denominator
                 int denominator = numbers.get(j);
+                double quotient = (double) numerator / denominator;
                 if (denominator <= (numerator / 3) && denominator > (numerator / 4)) {
-                    double currentEx = Math.abs(((double) numerator / denominator) - Math.PI);
-                    if (currentEx < minimum) {
-                        minimum = currentEx;
-                        holder.setFirst(numerator);
-                        holder.setSecond(denominator);
+                    if (Math.abs(quotient - Math.PI) < minimum) {
+                        minimum = Math.abs(quotient - Math.PI);
+                        resFirst = numerator;
+                        resSecond = denominator;
                     }
                 }
             }
         }
-        return holder;
+        return new PiHolderImpl(resFirst, resSecond);
     }
 }
