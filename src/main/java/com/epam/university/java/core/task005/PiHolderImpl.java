@@ -9,14 +9,6 @@ public class PiHolderImpl implements PiHolder {
         this.denominator = denominator;
     }
 
-    public void setFirst(int numerator) {
-        this.numerator = numerator;
-    }
-
-    public void setSecond(int denominator) {
-        this.denominator = denominator;
-    }
-
     @Override
     public int getFirst() {
         return numerator;
