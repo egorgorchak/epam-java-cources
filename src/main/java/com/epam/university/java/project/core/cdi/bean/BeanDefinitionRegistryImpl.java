@@ -27,6 +27,19 @@ public class BeanDefinitionRegistryImpl implements BeanDefinitionRegistry {
 
     @Override
     public BeanDefinition getBeanDefinition(String beanId) {
-        return null;
+        //beanID - name (id) or class
+        BeanDefinition beanDefinition = null;
+        for (BeanDefinition def : beanDefinitions) {
+            if (def.getId().equals(beanId)) {
+                beanDefinition = def;
+            } else if (def.getClassName().equals(beanId)) {
+                beanDefinition = def;
+            }
+        }
+
+        if (beanDefinition == null) {
+            throw new RuntimeException("There is no beanDefinition with specified beanId!");
+        }
+        return beanDefinition;
     }
 }
