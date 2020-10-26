@@ -1,6 +1,6 @@
 package com.epam.university.java.project.core.cdi.bean;
 /*
- * Completed by Laptev Egor 21.10.2020
+ * Created by Laptev Egor 21.10.2020
  * */
 
 import com.epam.university.java.project.core.cdi.structure.StructureDefinition;

@@ -1,6 +1,6 @@
 package com.epam.university.java.project.core.cdi.bean;
 /*
- * Completed by Laptev Egor 22.10.2020
+ * Created by Laptev Egor 22.10.2020
  * */
 
 import javax.xml.bind.annotation.XmlElement;
@@ -9,7 +9,7 @@ import java.util.Collection;
 
 @XmlRootElement(name = "beans")
 public class BeanDefinitionRegistryImpl implements BeanDefinitionRegistry {
-    private static Collection<BeanDefinition> beanDefinitions;
+    private Collection<BeanDefinition> beanDefinitions;
 
     public Collection<BeanDefinition> getBeanDefinitions() {
         return beanDefinitions;
@@ -17,7 +17,7 @@ public class BeanDefinitionRegistryImpl implements BeanDefinitionRegistry {
 
     @XmlElement(name = "bean", type = BeanDefinitionImpl.class)
     public void setBeanDefinitions(Collection<BeanDefinition> beanDefinitions) {
-        BeanDefinitionRegistryImpl.beanDefinitions = beanDefinitions;
+        this.beanDefinitions = beanDefinitions;
     }
 
     @Override
