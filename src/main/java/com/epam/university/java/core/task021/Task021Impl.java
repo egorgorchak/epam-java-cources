@@ -66,6 +66,12 @@ public class Task021Impl implements Task021 {
                 thirdVertices.get(0)
         );
 
+        Point point = new PointFactoryImpl()
+                .newInstance(
+                        (line0n1.getX() + line1n2.getX() + line2n0.getX()) / 3,
+                        (line0n1.getY() + line1n2.getY() + line2n0.getY()) / 3
+                );
+
         return new PointFactoryImpl()
                 .newInstance(
                         (line0n1.getX() + line1n2.getX() + line2n0.getX()) / 3,
@@ -141,9 +147,7 @@ public class Task021Impl implements Task021 {
 
         double x = deltaX / delta;
         double y = deltaY / delta;
-        if (y == -0.4226497308103742) {
-            y = y - 7.0E-17;
-        }
+
         return new PointFactoryImpl().newInstance(x, y);
     }
 }
