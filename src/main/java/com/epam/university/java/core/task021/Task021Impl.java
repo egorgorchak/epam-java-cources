@@ -17,7 +17,7 @@ public class Task021Impl implements Task021 {
         ArrayList<Point> positions = new ArrayList<>(minePositions);
         //checks for point with angle between lines >= 120
         for (int i = 0; i < positions.size(); i++) {
-            Point centerPoint = positions.get(i);;
+            Point centerPoint = positions.get(i);
             Point previousPoint;
             Point nextPoint;
             if (i == 0) {
@@ -66,10 +66,15 @@ public class Task021Impl implements Task021 {
                 thirdVertices.get(0)
         );
 
+        BigDecimal x = BigDecimal.valueOf((line0n1.getX() + line1n2.getX() + line2n0.getX()) / 3)
+                .setScale(15, RoundingMode.HALF_UP);
+        BigDecimal y = BigDecimal.valueOf((line0n1.getY() + line1n2.getY() + line2n0.getY()) / 3)
+                .setScale(15, RoundingMode.HALF_UP);
+
         return new PointFactoryImpl()
                 .newInstance(
-                        (line0n1.getX() + line1n2.getX() + line2n0.getX()) / 3,
-                        (line0n1.getY() + line1n2.getY() + line2n0.getY()) / 3
+                        x.doubleValue(),
+                        y.doubleValue()
                 );
     }
 
@@ -103,9 +108,6 @@ public class Task021Impl implements Task021 {
 
         double angle = Math.PI / 2d - Math.atan2(p2.getY() - p1.getY(),p2.getX() - p1.getX());
         double deltaX = height * Math.cos(angle);
-        if (Math.abs(deltaX) < 0.0000000001) {
-            deltaX = 0;
-        }
         double deltaY = height * Math.cos(Math.PI / 2d - angle);
         return new PointFactoryImpl()
                 .newInstance(
@@ -141,9 +143,7 @@ public class Task021Impl implements Task021 {
 
         double x = deltaX / delta;
         double y = deltaY / delta;
-        if (y == -0.4226497308103742) {
-            y = y - 7.0E-17;
-        }
+
         return new PointFactoryImpl().newInstance(x, y);
     }
 }
