@@ -91,6 +91,9 @@ public class ApplicationContextImpl implements ApplicationContext {
                         implClass = (Class<T>) aClass;
                     }
                 }
+                if (implClass != null) {
+                    break;
+                }
             }
             if (implClass == null) {
                 throw new RuntimeException("Unable to get bean by interface");
