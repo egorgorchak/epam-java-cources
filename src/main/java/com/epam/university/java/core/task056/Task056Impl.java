@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Task056Impl implements Task056 {
+public class Task056Impl {
     private List<ArrayList<Integer>> possibleCombinations = new ArrayList<>();
     private List<ArrayList<Integer>> courseOfPills = new ArrayList<>();
 
-    @Override
+//    @Override
     public Collection<Integer> necessaryMedication(String prescriptionFile) {
         if (prescriptionFile == null) {
             throw new IllegalArgumentException();
@@ -89,7 +89,7 @@ public class Task056Impl implements Task056 {
         return resultBoxNumbers;
     }
 
-    @Override
+//    @Override
     public Collection<String> intervalBetweenMedication(Collection<Integer> necessaryMedication) {
         if (necessaryMedication == null) {
             throw new IllegalArgumentException();
