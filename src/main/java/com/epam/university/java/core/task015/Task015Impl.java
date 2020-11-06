@@ -135,19 +135,19 @@ public class Task015Impl implements Task015 {
 
     /**
      * Checks whether the point belong to the line.
-     * @param pointToCheck point to check
+     * @param checkPoint point to check
      * @param point1 first point of line
      * @param point2 second point of line
-     * @return true if pointToCheck belongs to the line
+     * @return true if checkPoint belongs to the line
      */
-    public boolean isBelongToLine(Point pointToCheck, Point point1, Point point2) {
+    public boolean isBelongToLine(Point checkPoint, Point point1, Point point2) {
         double[] eq1 = new double[3];
 
         eq1[0] = point1.getY() - point2.getY();
         eq1[1] = point2.getX() - point1.getX();
         eq1[2] = point1.getX() * point2.getY() - point2.getX() * point1.getY();
 
-        double delta = eq1[0] * pointToCheck.getX() + eq1[1] * pointToCheck.getY() + eq1[2];
+        double delta = eq1[0] * checkPoint.getX() + eq1[1] * checkPoint.getY() + eq1[2];
 
         if (delta != 0) {
             return false;
@@ -165,12 +165,12 @@ public class Task015Impl implements Task015 {
         }
 
         if (point1.getX() != point2.getX() && point1.getY() != point2.getY()) {
-            return (point1.getY() <= pointToCheck.getY() && point2.getY() >= pointToCheck.getY())
-                    || (point1.getX() <= pointToCheck.getX() && point2.getX() >= pointToCheck.getX());
+            return (point1.getY() <= checkPoint.getY() && point2.getY() >= checkPoint.getY())
+                    || (point1.getX() <= checkPoint.getX() && point2.getX() >= checkPoint.getX());
         }
 
-        return (point1.getY() <= pointToCheck.getY() && point2.getY() >= pointToCheck.getY())
-                && (point1.getX() <= pointToCheck.getX() && point2.getX() >= pointToCheck.getX());
+        return (point1.getY() <= checkPoint.getY() && point2.getY() >= checkPoint.getY())
+                && (point1.getX() <= checkPoint.getX() && point2.getX() >= checkPoint.getX());
 
     }
 
