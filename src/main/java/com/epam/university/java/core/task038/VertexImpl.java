@@ -8,6 +8,13 @@ public class VertexImpl implements Vertex {
     private final int x;
     private final int y;
 
+    /**
+     * Constructor.
+     *
+     * @param id vertex id
+     * @param x first coordinate
+     * @param y second coordinate
+     */
     public VertexImpl(int id, int x, int y) {
         this.id = id;
         this.x = x;
@@ -27,33 +34,5 @@ public class VertexImpl implements Vertex {
     @Override
     public int getY() {
         return y;
-    }
-
-    @Override
-    public int hashCode() {
-        return 31 * x * y * id;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null) {
-            return false;
-        }
-
-        Vertex vert = (Vertex) obj;
-        if (vert.getId() != this.id) {
-            return false;
-        }
-        if (vert.getX() != this.x) {
-            return false;
-        }
-        if (vert.getY() != this.y) {
-            return false;
-        }
-        return true;
     }
 }

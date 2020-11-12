@@ -4,21 +4,23 @@ package com.epam.university.java.core.task038;
  * */
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class GraphImpl implements Graph {
     private final List<Vertex> vertices;
-    private Map<Vertex, ArrayList<Vertex>> adjMap;
+    private int[][] matrix;
+
     private final int countVertices;
 
-
-
+    /**
+     * Constructor.
+     *
+     * @param countVertices amount of vertices
+     */
     public GraphImpl(int countVertices) {
         this.countVertices = countVertices;
         vertices = new ArrayList<>();
-        adjMap = new LinkedHashMap<>();
+        matrix = new int[countVertices][countVertices];
     }
 
     @Override
@@ -31,19 +33,15 @@ public class GraphImpl implements Graph {
 
     @Override
     public void connectVertices(int fromId, int toId) {
-        Vertex vertexFrom = getVertexById(fromId);
-        Vertex vertexTo = getVertexById(toId);
-        if (adjMap.containsKey(vertexFrom)) {
-            ArrayList<Vertex> currVer = adjMap.get(vertexFrom);
-            currVer.add(vertexTo);
-            adjMap.put(vertexFrom, currVer);
-        } else {
-            ArrayList<Vertex> vert = new ArrayList<>();
-            vert.add(vertexTo);
-            adjMap.put(vertexFrom, vert);
-        }
+        matrix[fromId][toId] = 1;
     }
 
+    /**
+     * Get vertex by id.
+     *
+     * @param id vertex id
+     * @return vertex instance
+     */
     public Vertex getVertexById(int id) {
         Vertex result = null;
         for (Vertex vertex : vertices) {
@@ -55,7 +53,11 @@ public class GraphImpl implements Graph {
         return result;
     }
 
-    public Map<Vertex, ArrayList<Vertex>> getAdjMap() {
-        return adjMap;
+    public int[][] getMatrix() {
+        return matrix;
+    }
+
+    public int getCountVertices() {
+        return countVertices;
     }
 }
