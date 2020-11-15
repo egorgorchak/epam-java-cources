@@ -1,6 +1,9 @@
 package com.epam.university.java.core.task062;
 
-public class SingletonObject {
+import java.io.Serializable;
+
+public class SingletonObject implements Serializable {
+    private static SingletonObject instance;
 
     private SingletonObject() {
     }
@@ -11,6 +14,13 @@ public class SingletonObject {
      * @return singleton instance
      */
     public static SingletonObject getInstance() {
-        return null;
+        if (instance == null) {
+            instance = new SingletonObject();
+        }
+        return instance;
+    }
+
+    private Object readResolve() {
+        return getInstance();
     }
 }
