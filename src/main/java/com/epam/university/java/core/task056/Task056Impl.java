@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Task056Impl {
+public class Task056Impl implements Task056 {
     private List<ArrayList<Integer>> possibleCombinations = new ArrayList<>();
     private List<ArrayList<Integer>> courseOfPills = new ArrayList<>();
 
-//    @Override
+    @Override
     public Collection<Integer> necessaryMedication(String prescriptionFile) {
         if (prescriptionFile == null) {
             throw new IllegalArgumentException();
@@ -43,7 +43,7 @@ public class Task056Impl {
             int to = Integer.parseInt(split[2]) - 1;
             ArrayList<Integer> toAdd = new ArrayList<>();
             for (int j = 0; j < maxDays; j++) {
-                if (j >= from && j<=to) {
+                if (j >= from && j <= to) {
                     toAdd.add(1);
                 } else {
                     toAdd.add(0);
@@ -89,7 +89,7 @@ public class Task056Impl {
         return resultBoxNumbers;
     }
 
-//    @Override
+    @Override
     public Collection<String> intervalBetweenMedication(Collection<Integer> necessaryMedication) {
         if (necessaryMedication == null) {
             throw new IllegalArgumentException();
@@ -123,7 +123,7 @@ public class Task056Impl {
         return result;
     }
 
-    public List<Integer> sumOfArrays(Collection<Integer> arr) {
+    private List<Integer> sumOfArrays(Collection<Integer> arr) {
         List<Integer> res = new ArrayList<>();
         for (Integer integer : arr) {
             List<Integer> integers = courseOfPills.get(integer);
@@ -140,7 +140,7 @@ public class Task056Impl {
         return res;
     }
 
-    public boolean isIntersectEachOther(List<Integer> arr) {
+    private boolean isIntersectEachOther(List<Integer> arr) {
         List<Integer> res = sumOfArrays(arr);
         for (Integer re : res) {
             if (re > 1) {
@@ -151,7 +151,6 @@ public class Task056Impl {
     }
 
     private void permuteIteration(String[] arr, int index, int limit) {
-        //последняя итерация
         if (index >= limit) {
             for (int i = 0; i < limit - 1; i++) {
                 int i1 = Integer.parseInt(arr[i]);
