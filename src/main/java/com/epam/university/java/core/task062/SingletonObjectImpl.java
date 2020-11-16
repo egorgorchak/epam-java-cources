@@ -2,10 +2,10 @@ package com.epam.university.java.core.task062;
 
 import java.io.Serializable;
 
-public class SingletonObject1 implements Serializable {
-    private static SingletonObject1 instance;
+public class SingletonObjectImpl implements Serializable, SingletonObject {
+    private static SingletonObjectImpl instance;
 
-    private SingletonObject1() {
+    private SingletonObjectImpl() {
     }
 
     /**
@@ -13,9 +13,9 @@ public class SingletonObject1 implements Serializable {
      *
      * @return singleton instance
      */
-    public static SingletonObject1 getInstance() {
+    public static SingletonObjectImpl getInstance() {
         if (instance == null) {
-            instance = new SingletonObject1();
+            instance = new SingletonObjectImpl();
         }
         return instance;
     }
