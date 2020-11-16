@@ -43,7 +43,7 @@ public class Task053Impl implements Task053 {
                 do {
                     nextChar = symbolsStack.pollLast();
                     if (nextChar == null) {
-                        break;
+                        throw new IllegalArgumentException();
                     }
                     if (!nextChar.equals("(")) {
                         operandStack.add(nextChar);
@@ -103,7 +103,7 @@ public class Task053Impl implements Task053 {
                         calculationStack.add(Math.pow(operand2, operand1));
                         break;
                     default:
-                        throw new RuntimeException("Unable to process operation");
+                        throw new IllegalArgumentException();
                 }
             }
         } while (calculationStack.size() >= 1);
