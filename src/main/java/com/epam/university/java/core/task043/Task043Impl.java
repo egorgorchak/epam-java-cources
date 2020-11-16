@@ -12,7 +12,7 @@ public class Task043Impl implements Task043 {
     {
         morse.put('A', ".-");
         morse.put('B', "-...");
-        morse.put('C', "---.");
+        morse.put('C', "-.-.");
         morse.put('D', "-..");
         morse.put('E', ".");
         morse.put('F', "..-.");
@@ -22,7 +22,7 @@ public class Task043Impl implements Task043 {
         morse.put('J', ".---");
         morse.put('K', "-.-");
         morse.put('L', ".-..");
-        morse.put('M', "----");
+        morse.put('M', "--");
         morse.put('N', "-.");
         morse.put('O', "---");
         morse.put('P', ".--.");
