@@ -15,7 +15,7 @@ public class Task062Test {
     private Task062 instance;
     private PersonSerializable personSer;
     private PersonExternalizable personExt;
-    private SingletonObject singletonObject;
+    private SingletonObject1 singletonObject;
 
     /**
      * Set up an instances before testing.
@@ -48,7 +48,7 @@ public class Task062Test {
         );
         personExt.setSpouse(TestHelper.getInstance(PersonExternalizable.class));
 
-        singletonObject = SingletonObject.getInstance();
+        singletonObject = SingletonObject1.getInstance();
     }
 
     @Test
