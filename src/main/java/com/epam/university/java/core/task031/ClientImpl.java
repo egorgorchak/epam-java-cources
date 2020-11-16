@@ -16,23 +16,24 @@ public class ClientImpl implements Client {
 
     @Override
     public void sendMessage(String message) {
-        if (message == null) {
+        if (message != null) {
+            try {
+                out.write(message);
+                out.newLine();
+                out.flush();
+                TimeUnit.MILLISECONDS.sleep(150);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
             throw new IllegalArgumentException();
-        }
-        try {
-            out.write(message);
-            out.newLine();
-            out.flush();
-            TimeUnit.MILLISECONDS.sleep(150);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     @Override
     public void start() {
         try {
-            socket = new Socket(InetAddress.getLocalHost(), 9999);
+            socket = new Socket(InetAddress.getLocalHost(), 7575);
             out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         } catch (Exception e) {
             e.printStackTrace();

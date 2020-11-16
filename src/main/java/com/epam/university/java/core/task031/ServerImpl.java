@@ -27,7 +27,7 @@ public class ServerImpl implements Server {
     public void start() {
         new Thread(() -> {
             try {
-                serverSocket = new ServerSocket(9999);
+                serverSocket = new ServerSocket(7575);
                 while (!serverSocket.isClosed()) {
                     Socket clientSocket = serverSocket.accept();
                     new Thread(() -> {
@@ -53,10 +53,12 @@ public class ServerImpl implements Server {
     @Override
     public void stop() {
         isRun = false;
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (serverSocket != null) {
+            try {
+                serverSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
