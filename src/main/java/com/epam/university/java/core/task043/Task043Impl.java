@@ -37,6 +37,16 @@ public class Task043Impl implements Task043 {
         morse.put('Y', "-.--");
         morse.put('Z', "--..");
         morse.put(',', "--..--");
+        morse.put('1', ".----");
+        morse.put('2', "..---");
+        morse.put('3', "...--");
+        morse.put('4', "....-");
+        morse.put('5', ".....");
+        morse.put('6', "-....");
+        morse.put('7', "--...");
+        morse.put('8', "---..");
+        morse.put('9', "----.");
+        morse.put('0', "-----");
     }
 
     @Override
