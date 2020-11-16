@@ -22,8 +22,8 @@ public interface ProcessingContext {
     int averageAge(String district);
 
     /**
-     * vFind the biggest house in the city.
-     *      * @return definition of house that hae biggest total floor space.
+     * Find the biggest house in the city.
+     * @return definition of house that have biggest total floor space.
      */
     HouseDefinition biggestTotalFloorSpace();
 
