@@ -13,20 +13,20 @@ import java.util.concurrent.TimeUnit;
 public class ClientImpl implements Client {
     private Socket socket;
     private BufferedWriter out;
+    private boolean isMsgNull;
 
     @Override
     public void sendMessage(String message) {
-        if (message != null) {
-            try {
-                out.write(message);
-                out.newLine();
-                out.flush();
-                TimeUnit.MILLISECONDS.sleep(150);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            throw new IllegalArgumentException();
+        if (message == null) {
+            isMsgNull = true;
+        }
+        try {
+            out.write(message);
+            out.newLine();
+            out.flush();
+            TimeUnit.MILLISECONDS.sleep(150);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -45,6 +45,9 @@ public class ClientImpl implements Client {
         try {
             out.close();
             socket.close();
+            if (isMsgNull) {
+                throw new IllegalArgumentException();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
